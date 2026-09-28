@@ -1,0 +1,444 @@
+@import "tailwindcss";
+
+/* Tailwind CSS v4 — @theme is a valid v4 at-rule (IDE may show a false warning).
+   Font variables are injected by Next.js via layout.tsx and consumed in :root below. */
+
+/* =========================================
+   CSS DESIGN TOKENS
+   ========================================= */
+:root {
+  /* Brand Colors */
+  --color-red: #E53E3E;
+  --color-red-dark: #C53030;
+  --color-red-light: #FC8181;
+  --color-red-soft: #FFF1F1;
+  --color-red-50: #FFF5F5;
+
+  /* Neutrals */
+  --color-dark: #111111;
+  --color-text: #181818;
+  --color-secondary: #5F6368;
+  --color-bg: #F7F7F5;
+  --color-white: #FFFFFF;
+  --color-border: #E8E8E8;
+  --color-border-subtle: #F0F0EE;
+
+  /* Dark Theme */
+  --color-dark-bg: #0D0D0D;
+  --color-dark-surface: #161616;
+  --color-dark-border: #222222;
+  --color-dark-text: #E8E8E8;
+  --color-dark-muted: #888888;
+
+  /* Typography */
+  --font-sans: var(--font-plus-jakarta), "Inter", system-ui, sans-serif;
+
+  /* Spacing */
+  --section-padding: 96px 0;
+  --section-padding-mobile: 64px 0;
+
+  /* Borders */
+  --radius-card: 20px;
+  --radius-btn: 10px;
+  --radius-badge: 100px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-card-hover: 0 4px 20px rgba(0,0,0,0.1), 0 8px 40px rgba(0,0,0,0.08);
+  --shadow-red: 0 4px 24px rgba(229,62,62,0.2);
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-Index */
+  --z-nav: 1000;
+  --z-modal: 2000;
+  --z-tooltip: 3000;
+}
+
+/* =========================================
+   GLOBAL RESETS & BASE
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Scroll margin for sticky nav offset */
+section[id] {
+  scroll-margin-top: 80px;
+}
+
+/* =========================================
+   TYPOGRAPHY SYSTEM
+   ========================================= */
+.text-display {
+  font-size: clamp(48px, 5vw, 80px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.text-heading {
+  font-size: clamp(36px, 4vw, 60px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+.text-subheading {
+  font-size: clamp(20px, 2.5vw, 28px);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+.text-section-title {
+  font-size: clamp(32px, 3.5vw, 52px);
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+  font-weight: 700;
+}
+
+.text-body-lg {
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.text-body {
+  font-size: 16px;
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+.text-body-sm {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.text-body-xs {
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+
+/* =========================================
+   LAYOUT UTILITIES
+   ========================================= */
+.container-xl {
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.container-lg {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.container-md {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (min-width: 640px) {
+  .container-xl, .container-lg, .container-md {
+    padding: 0 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-xl, .container-lg {
+    padding: 0 40px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container-xl {
+    padding: 0 48px;
+  }
+}
+
+.section-padding {
+  padding: 96px 0;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 64px 0;
+  }
+}
+
+/* =========================================
+   BADGE COMPONENT
+   ========================================= */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-secondary);
+}
+
+.badge-red {
+  border-color: rgba(229, 62, 62, 0.2);
+  background: var(--color-red-soft);
+  color: var(--color-red);
+}
+
+.badge-dark {
+  border-color: #333;
+  background: #1a1a1a;
+  color: #999;
+}
+
+/* =========================================
+   BUTTON SYSTEM
+   ========================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: var(--radius-btn);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--color-red);
+  color: var(--color-white);
+  box-shadow: var(--shadow-red);
+}
+
+.btn-primary:hover {
+  background: var(--color-red-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(229,62,62,0.3);
+}
+
+.btn-secondary {
+  background: var(--color-dark);
+  color: var(--color-white);
+}
+
+.btn-secondary:hover {
+  background: #222;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-dark);
+  border: 1.5px solid var(--color-border);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-dark);
+  background: rgba(0,0,0,0.03);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-secondary);
+  padding: 12px 20px;
+}
+
+.btn-ghost:hover {
+  color: var(--color-dark);
+  background: rgba(0,0,0,0.04);
+}
+
+.btn-lg {
+  padding: 16px 36px;
+  font-size: 16px;
+  border-radius: 12px;
+}
+
+.btn-sm {
+  padding: 10px 20px;
+  font-size: 13px;
+}
+
+/* =========================================
+   CARD SYSTEM
+   ========================================= */
+.card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 28px;
+  transition: all var(--transition-smooth);
+  box-shadow: var(--shadow-card);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+  border-color: var(--color-border-subtle);
+}
+
+.card-dark {
+  background: var(--color-dark-surface);
+  border-color: var(--color-dark-border);
+  color: var(--color-dark-text);
+}
+
+/* =========================================
+   DIVIDER
+   ========================================= */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* =========================================
+   ANIMATIONS - Reduced Motion Support
+   ========================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* =========================================
+   GRADIENT TEXT
+   ========================================= */
+.gradient-text-red {
+  background: linear-gradient(135deg, #E53E3E 0%, #FC8181 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =========================================
+   FOCUS STATES (Accessibility)
+   ========================================= */
+:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* =========================================
+   SCROLLBAR
+   ========================================= */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
+}
+
+/* =========================================
+   SELECTION
+   ========================================= */
+::selection {
+  background: rgba(229, 62, 62, 0.15);
+  color: var(--color-dark);
+}
+
+/* =========================================
+   NOISE TEXTURE (subtle)
+   ========================================= */
+.noise-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =========================================
+   GRID SYSTEM
+   ========================================= */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+/* =========================================
+   HORIZONTAL SCROLL (Module Tabs on Mobile)
+   ========================================= */
+.horizontal-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================
+   SCROLLBAR HIDE UTILITY
+   ========================================= */
+.scrollbar-hide {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
