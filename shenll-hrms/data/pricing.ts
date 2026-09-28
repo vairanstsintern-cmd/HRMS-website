@@ -66,6 +66,7 @@ export const pricingPlans: PricingPlan[] = [
       { name: "Workflow Automation", included: true },
       { name: "Priority Support", included: false },
     ],
+
   },
   {
     id: "enterprise",
